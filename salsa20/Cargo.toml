@@ -18,6 +18,9 @@ cipher = "0.4.4"
 [dev-dependencies]
 cipher = { version = "0.4.4", features = ["dev"] }
 hex-literal = "0.3.3"
+serde_json = "1.0.107"
+hex = "0.4.3"
+serde = { version = "1.0.188", features = ["derive"] }
 
 [features]
 std = ["cipher/std"]
