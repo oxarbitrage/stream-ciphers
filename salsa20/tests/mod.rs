@@ -5,6 +5,8 @@ use hex_literal::hex;
 use salsa20::Salsa20;
 use salsa20::XSalsa20;
 
+mod ecrypt;
+
 cipher::stream_cipher_seek_test!(salsa20_seek, Salsa20);
 cipher::stream_cipher_seek_test!(xsalsa20_seek, XSalsa20);
 
