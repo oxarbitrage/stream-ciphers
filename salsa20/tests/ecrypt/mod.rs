@@ -10,10 +10,16 @@ use super::IV_BYTES;
 
 const BLOCK_SIZE: usize = 64;
 
+/// Test vectors from the eSTREAM submission.
+///
+/// - The original tests vectors were converted to json using [this script](https://github.com/oxarbitrage/salsa20-ecrypt-vectors-converter).
+/// - Unfortunatly, the current implementation only supports 256 bit keys so we can't test the 128 bit key vectors.
+/// - The xor-digest check is currently pending.
 #[test]
-fn ecrypt_test_vectors_256_bit_key() {
+fn ecrypt_test_vectors() {
     let key_bytes = KeyBits::Bits256;
 
+    // Code was written with 128 bit key size in mind, but the current implementation only supports 256 bit keys.
     let json = match key_bytes {
         KeyBits::Bits128 => {
             EcryptTestVector::json("./tests/ecrypt/test_vectors_128.json".to_string())
@@ -35,6 +41,7 @@ fn ecrypt_test_vectors_256_bit_key() {
             let (stream4_index, stream4_expected) = test_data.stream4();
 
             let mut cipher = match key_bytes {
+                // 128 bit key size is not supported
                 KeyBits::Bits128 => {
                     let _key_as_array: [u8; 16] = key.try_into().expect("data do not fit");
                     panic!("128 bit key size is not supported")
